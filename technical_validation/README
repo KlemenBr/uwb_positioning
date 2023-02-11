@@ -1,0 +1,20 @@
+sudo curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+sudo curl -s -L https://nvidia.github.io/nvidia-docker/ubuntu22.04/nvidia-docker.list > /etc/apt/sources.list.d/nvidia-docker.list
+distribution=ubuntu22.04
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+sudo systemctl restart docker
+
+
+docker run --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 -it --rm -v /home/klemen/git/nature_uwb_data_set/:/workspace/ntf/ nvidia-tf /bin/bash
+
+
+
+
+docker run -it --rm -v /home/klemen/git/nature_uwb_data_set/:/workspace/ntf/ tensorflow/tensorflow /bin/bash
+
+/usr/bin/python3 -m pip install --upgrade pip
+pip3 install scipy
+pip3 install matplotlib
+pip3 install pandas
