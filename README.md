@@ -1,4 +1,4 @@
-# uwb_positioning
+The code contains the preprocessing scripts and experiments that work on [UWB Positioning and Tracking Data Set](https://zenodo.org/record/7629141). The code demonstrate the UWP positioning technique with ranging error mitigation using deep learning-based ranging error estimation by convolutional neural networks (CNN) using TensorFlow deep learning platform.
 
 
 # Requirements
@@ -12,12 +12,12 @@ It is adwised to have a computer with 32 GB of RAM.
 
 # Install NVIDIA TensorFlow Docker Image
 For Ubuntu 22.04 please follow the instructions on the following link:
-https://docs.docker.com/desktop/install/ubuntu/
+[https://docs.docker.com/desktop/install/ubuntu/](https://docs.docker.com/desktop/install/ubuntu/)
 
 ## Docker image with NVIDIA GPU support
 If you have an NVIDIA GPU and you want to run the experiments using GPU acceleration, please follow the following instructions.
 
-To install NVIDIA GPU docker support please follow the instructions on https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker
+To install NVIDIA GPU docker support please follow the instructions on [https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
 Build the nvidia-tf docker image
 
