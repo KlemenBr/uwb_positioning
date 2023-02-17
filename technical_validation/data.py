@@ -128,7 +128,7 @@ class DataSet(object):
     
     def load_data_set(self, channel, location):
         # load data from selected location
-        with open('./data_set/' + location + '/' + 'data.json', 'r') as f:
+        with open('../data_set/' + location + '/' + 'data.json', 'r') as f:
             data = json.load(f)
         
         # load walking path and anchors in a selected data set
@@ -240,7 +240,7 @@ class DataSet_Positioning(object):
     
     def data_set_init(self):
         # load data from selected location
-        with open('./data_set/' + self.location + '/' + 'data.json', 'r') as f:
+        with open('../data_set/' + self.location + '/' + 'data.json', 'r') as f:
             data = json.load(f)
         
         # load walking path

@@ -2,3 +2,5 @@ data_set.zip
 data_set/
 md5sums.txt
 __pycache__/
+__autograph_*
+matplotlib*

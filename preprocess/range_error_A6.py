@@ -69,7 +69,7 @@ for location in envs.keys():
         data['measurements'][pos_name] = {}
 
         # set input folder loaction
-        folder_in = '../raw_data/' + location +'/data_offset/' + pos_name
+        folder_in = './data_set/raw_data/' + location +'/data_offset/' + pos_name
         print(folder_in)
 
         # go through files and load data
@@ -173,7 +173,10 @@ for channel in channels:
     plt.grid()
     plt.legend()
 
-
+    folder_out = './data_set/technical_validation/range_error_A6/'
+    if not os.path.exists(folder_out):
+        print('creating empty folder')
+        os.makedirs(folder_out)
     filename = './data_set/technical_validation/range_error_A6/' + location + '_' + channel + '_A6' + '.png'
     print('Saving ' + filename)
     plt.savefig(filename, bbox_inches='tight')

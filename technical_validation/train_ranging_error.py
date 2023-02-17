@@ -92,7 +92,6 @@ def generate_model(batch_normalization=True, dropout_regularization=True):
 				 bias_initializer=keras.initializers.Constant(value=0.1)))
 	if True == batch_normalization:
 		model.add(BatchNormalization())
-	#model.add(ReLU(max_value=None, negative_slope=0.0, threshold=0.0))
 	model.add(LeakyReLU(alpha=0.3))
 	# L2
 	model.add(Conv1D(filters=L2_depth, kernel_size=L2_patch_w, strides=2, padding='same', use_bias=True,
@@ -100,7 +99,6 @@ def generate_model(batch_normalization=True, dropout_regularization=True):
 				 bias_initializer=keras.initializers.Constant(value=0.1)))
 	if True == batch_normalization:
 		model.add(BatchNormalization())
-	#model.add(ReLU(max_value=None, negative_slope=0.0, threshold=0.0))
 	model.add(LeakyReLU(alpha=0.3))
 	# L3
 	model.add(Conv1D(filters=L3_depth, kernel_size=L3_patch_w, strides=2, padding='same', use_bias=True,
@@ -108,7 +106,6 @@ def generate_model(batch_normalization=True, dropout_regularization=True):
 				 bias_initializer=keras.initializers.Constant(value=0.1)))
 	if True == batch_normalization:
 		model.add(BatchNormalization())
-	#model.add(ReLU(max_value=None, negative_slope=0.0, threshold=0.0))
 	model.add(LeakyReLU(alpha=0.3))
 	# pool			 
 	model.add(MaxPooling1D(pool_size=2, strides=2, padding='valid'))
@@ -118,7 +115,6 @@ def generate_model(batch_normalization=True, dropout_regularization=True):
 				 bias_initializer=keras.initializers.Constant(value=0.1)))
 	if True == batch_normalization:
 		model.add(BatchNormalization())
-	#model.add(ReLU(max_value=None, negative_slope=0.0, threshold=0.0))
 	model.add(LeakyReLU(alpha=0.3))
 	# L5
 	model.add(Conv1D(filters=L5_depth, kernel_size=L5_patch_w, strides=2, padding='same', use_bias=True,
@@ -126,7 +122,6 @@ def generate_model(batch_normalization=True, dropout_regularization=True):
 				 bias_initializer=keras.initializers.Constant(value=0.1)))
 	if True == batch_normalization:
 		model.add(BatchNormalization())
-	#model.add(ReLU(max_value=None, negative_slope=0.0, threshold=0.0))
 	model.add(LeakyReLU(alpha=0.3))
 	# pool
 	model.add(MaxPooling1D(pool_size=2, strides=2, padding='valid'))
