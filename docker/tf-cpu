@@ -3,11 +3,13 @@ FROM tensorflow/tensorflow:latest
 RUN apt-get update --fix-missing && \
 	apt-get install -y apt-utils && \
     apt-get upgrade -y && \
-    apt-get install -y wget python3-pip;
+    apt-get install -y wget python3-pip && \
+    apt-get install -y unzip;
 
 RUN pip3 install matplotlib && \
     pip3 install pandas && \
     pip3 install numpy && \
-    pip3 install scikit-learn;
+    pip3 install scikit-learn && \
+    pip3 install zenodo_get;
 
 

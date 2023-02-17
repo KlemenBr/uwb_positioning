@@ -1,2 +1,0 @@
-pip3 install zenodo_get
-sudo apt-get install unzip
