@@ -2,9 +2,13 @@
 
 
 # Requirements
+The code is written and tested on a computer with **Ubuntu 22.04** Linux OS distribution. It should be possible to replicate the experiments on any computer with one of major Linux OS distributions that support Docker. It should also be possible to run the experiments on Windows computers with Docker installed but **any of those configurations wasn't tested**.
+
 To download and extract the data set 16.4 GB of free disk space is needed. 
 
 All data in data set is already preprocessed so running preprocessing is not needed. You can run it in case you want to reproduce the process or if you want to analyze or to review the process. **In case you want to run the preprocessing scripts, additional 12.5 GB of free disk space is needed: total 28.9 GB of free disk space.**
+
+It is adwised to have a computer with 32 GB of RAM.
 
 # Install NVIDIA TensorFlow Docker Image
 For Ubuntu 22.04 please follow the instructions on the following link:
