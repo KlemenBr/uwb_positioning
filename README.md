@@ -41,6 +41,17 @@ docker run -u $(id -u):$(id -g) -it --rm -v $PWD:/tmp -w /tmp tf-cpu /bin/bash
 ```
 
 # Running the Examples
+## Start Docker Container Inside Repository
+Docker with NVIDIA GPU support
+```
+docker run --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 -it --rm -v $PWD:/tmp -w /tmp nvidia-tf /bin/bash
+```
+
+Docker with CPU support
+```
+docker run -u $(id -u):$(id -g) -it --rm -v $PWD:/tmp -w /tmp tf-cpu /bin/bash
+```
+
 ## Download data set
 First, the **UWB Positioning and Tracking Data Set** has to be downloaded. You can do that by running the cript **download.sh**. Grab a cup of coffe and wait. It can easily take 10 minutes to download the data set. 
 ```
