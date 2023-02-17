@@ -94,5 +94,15 @@ python3 positioning.py
 ```
 
 
+# Authors and License
+
+Author of data set in this repository is Klemen Bregar, klemen.bregar@ijs.si. Copyright (C) 2023 SensorLab, Jožef Stefan Institute, sensorlab@ijs.si.
+
+This work is licensed under the Apache License 2.0.a License.
+
+# Funding
+
+The research leading to these results has received funding from the European Horizon 2020 Programme project eWINE under grant agreement No. 688116.
+
 
 
