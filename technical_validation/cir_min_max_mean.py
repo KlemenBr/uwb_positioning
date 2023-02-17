@@ -42,11 +42,11 @@ for location in locations:
     print(location)
     data = {}
 
-    with open('./data_set/' + location + '/' + 'data.json', 'r') as f:
+    with open('../data_set/' + location + '/' + 'data.json', 'r') as f:
         data = json.load(f)
     
     # create directory if it doesnt exist
-    os.makedirs('./data_set/technical_validation/cir_min_max_mean/' + location, exist_ok=True)
+    os.makedirs('../data_set/technical_validation/cir_min_max_mean/' + location, exist_ok=True)
 
     # load walking path data
     path = data['path']
@@ -96,11 +96,10 @@ for location in locations:
             plt.legend()
 
 
-            filename = './data_set/technical_validation/cir_min_max_mean/' + location + '/' + anchor + '_' + channel + '.png'
+            filename = '../data_set/technical_validation/cir_min_max_mean/' + location + '/' + anchor + '_' + channel + '.png'
             print('Saving ' + filename)
             plt.savefig(filename, bbox_inches='tight')
             plt.close()
 
-            #plt.show()
 
 

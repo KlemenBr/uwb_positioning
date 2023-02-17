@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 data2 = {}
 data3 = {}
 
-with open('./data_set/location2/' + 'data.json', 'r') as f:
+with open('../data_set/location2/' + 'data.json', 'r') as f:
     data2 = json.load(f)
-with open('./data_set/location3/' + 'data.json', 'r') as f:
+with open('../data_set/location3/' + 'data.json', 'r') as f:
     data3 = json.load(f)
 
 # load walking path data
@@ -135,7 +135,7 @@ plt.grid()
 plt.legend()
 
 
-filename = './data_set/technical_validation/range_error_histograms/loc2_loc3.png'
+filename = '../data_set/technical_validation/range_error_histograms/loc2_loc3.png'
 print('Saving ' + filename)
 plt.savefig(filename)
 

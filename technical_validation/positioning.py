@@ -177,7 +177,7 @@ for location in locations:
         plt.grid()
  
 
-        filename = './data_set/technical_validation/positioning_wls/' + location + '_' + channel + '.png'
+        filename = '../data_set/technical_validation/positioning_wls/' + location + '_' + channel + '.png'
         print('Saving ' + filename)
         plt.savefig(filename, bbox_inches='tight')
         plt.close()  

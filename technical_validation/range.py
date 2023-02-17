@@ -10,7 +10,7 @@ for location in locations:
     print(location)
     data = {}
 
-    with open('./data_set/' + location + '/' + 'data.json', 'r') as f:
+    with open('../data_set/' + location + '/' + 'data.json', 'r') as f:
         data = json.load(f)
 
     # load walking path data
@@ -135,7 +135,7 @@ for location in locations:
         plt.legend()
 
 
-        filename = './data_set/technical_validation/range/' + location + '_' + channel + '.png'
+        filename = '../data_set/technical_validation/range/' + location + '_' + channel + '.png'
         print('Saving ' + filename)
         plt.savefig(filename, bbox_inches='tight')
         plt.close()  
