@@ -4,3 +4,6 @@ md5sums.txt
 __pycache__/
 __autograph_*
 matplotlib*
+data_analysis_raw_data/*.json
+*.ipynb
+*.png

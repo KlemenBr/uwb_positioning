@@ -4,13 +4,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-locations = ['location0', 'location1', 'location2', 'location3']
+environments = ['environment0', 'environment1', 'environment2', 'environment3']
 
-for location in locations:
-    print(location)
+for environment in environments:
+    print(environment)
     data = {}
 
-    with open('../data_set/' + location + '/' + 'data.json', 'r') as f:
+    with open('../data_set/' + environment + '/' + 'data.json', 'r') as f:
         data = json.load(f)
 
     # load walking path data
@@ -89,7 +89,7 @@ for location in locations:
         ax.set_ylabel('Error [m]')
         plt.grid()
 
-        if (location != 'location2'):
+        if (environment != 'environment2'):
             ax = plt.subplot(8,1,6)
             ax.set_title('A6')
             ax.boxplot(rng_error['A6'], sym='')
@@ -118,7 +118,7 @@ for location in locations:
         plt.grid()
 
 
-        filename = '../data_set/technical_validation/range_error/' + location + '_' + channel + '.png'
+        filename = '../data_set/technical_validation/range_error/' + environment + '_' + channel + '.png'
         print('Saving ' + filename)
         plt.savefig(filename, bbox_inches='tight')
         plt.close()  

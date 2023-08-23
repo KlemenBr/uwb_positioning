@@ -1,5 +1,9 @@
+import os
 import pandas as pd
+import numpy as np
+import time
 import json
+import pickle
 
 
 legend = [
@@ -46,12 +50,13 @@ for channel in channels:
     for anchor in anchors:
         filenames.append(channel + '_' + anchor)
 
+#data = {}
 
 for environment in envs.keys():
     print("Loading data for " + environment)
 
     # load walking path
-    walking_path = envs[environment]['path']+'walking_path.csv'
+    walking_path = envs[environment]['environment']+'walking_path.csv'
     df = pd.read_csv(walking_path, sep=',', header=None, skiprows=1)
     wp_data = df.values
 
@@ -72,7 +77,7 @@ for environment in envs.keys():
         data['measurements'][pos_name] = {}
 
         # set input folder loaction
-        folder_in = './data_set/raw_data/' + environment +'/data_final/' + pos_name
+        folder_in = '../data_set/raw_data/' + environment +'/data_offset/' + pos_name
         print(folder_in)
 
         # go through files and load data
@@ -82,9 +87,9 @@ for environment in envs.keys():
             channel = pair.split('_')[0]
             anchor = pair.split('_')[1]
             filepath_in = folder_in + '/' + file
+            #print(filepath_in)
 
             if ((environment == 'environment2') and (anchor == 'A6')):
-                print('environment2 A6')
                 pass
             else:
                 if anchor not in data['measurements'][pos_name].keys():

@@ -1,4 +1,10 @@
-import os
+import json
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+import json
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -33,10 +39,14 @@ legend = [
     {'name': 'cir', 'index': 26}
 ]
 
-envs = {'environment2': {'path': './data_set/raw_data/environment2/'}}
+
+envs = {'environment0': {'path': '../data_set/raw_data/environment0/'},
+		'environment1': {'path': '../data_set/raw_data/environment1/'},
+		'environment2': {'path': '../data_set/raw_data/environment2/'},
+		'environment3': {'path': '../data_set/raw_data/environment3/'}}
 
 channels = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch7']
-anchors = ['A6', 'A7']
+anchors = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8']
 
 # prepare filenames for the process of range offset calculation
 filenames = []
@@ -44,8 +54,9 @@ for channel in channels:
     for anchor in anchors:
         filenames.append(channel + '_' + anchor)
 
-data = {}
 
+
+data = {}
 
 for environment in envs.keys():
 
@@ -68,7 +79,7 @@ for environment in envs.keys():
         # prepare empty dictionary for position's data
         data['measurements'][pos_name] = {}
 
-        # set input folder loaction
+        # set input folder location
         folder_in = envs[environment]['path'] +'data_offset/' + pos_name
         print(folder_in)
 
@@ -119,69 +130,113 @@ for environment in envs.keys():
                         measurement[item['name']] = row[item['index']]
 
                 data['measurements'][pos_name][anchor][channel].append(measurement)
+            
 
+    for channel in channels:
+        rng_error = {}
+        for anchor in anchors:
+            rng_error[anchor] = []
 
-# load walking path data
-path = data['path']
-channels = data['channels']
-anchors = data['anchors']
-print(len(path))
+        for anchor in anchors:
+            for position in data['path']:
 
-for channel in channels:
-    rng_error = {}
-    for anchor in anchors:
-        rng_error[anchor] = []
-
-    for anchor in anchors:
-        for position in path:
-
-            pos_name = position['x'] + '_' + position['y'] + '_' + position['z']
+                pos_name = position['x'] + '_' + position['y'] + '_' + position['z']
     
-            rerr = []
+                rerr = []
 
-            for item in data['measurements'][pos_name][anchor][channel]:
-                # calculate euclidean distance
-                range = np.sqrt(np.power((item['x_anchor'] - item['x_tag']),2) + 
-                                np.power((item['y_anchor'] - item['y_tag']),2) + 
-                                np.power((item['z_anchor'] - item['z_tag']),2))
-                rerr.append(item['range'] - range)
+                for item in data['measurements'][pos_name][anchor][channel]:
+                    # calculate euclidean distance
+                    range = np.sqrt(np.power((item['x_anchor'] - item['x_tag']),2) + 
+                                    np.power((item['y_anchor'] - item['y_tag']),2) + 
+                                    np.power((item['z_anchor'] - item['z_tag']),2))
+                    rerr.append(item['range'] - range)
 
                 
-            rng_error[anchor].append(np.array([np.min(rerr), np.mean(rerr), np.max(rerr)]))
+                rng_error[anchor].append(np.array(rerr))
+    
         
-        rng_error[anchor] = np.asarray(rng_error[anchor])
 
-    plt.figure(figsize=(10,6), layout='tight', dpi=200)
-    #plt.title(environment + ' ' + channel + ' ' + 'err_sum: %f' % err_sum + 'err_sum_comp: %f' % err_sum_comp)
-    ts = np.arange(int(len(path)))
+        plt.figure(figsize=(10,18), layout='tight', dpi=300)
+        ts = np.arange(int(len(data['path'])))
 
-    plt.subplot(2,1,1)
-    plt.title('a) A6 Ranging Error')
-    plt.plot(ts, rng_error['A6'][:,1], color='gray', label='Mean Error [m]')
-    plt.fill_between(x=ts, y1=rng_error['A6'][:,0], y2=rng_error['A6'][:,2], label='Error [m]', color='blue')
-    plt.xlabel('Position')
-    plt.ylabel('Error [m]')
-    plt.grid()
-    plt.legend()
+        ax = plt.subplot(8,1,1)
+        ax.set_title('A1')
+        ax.boxplot(rng_error['A1'], sym='')
+        ax.set_xticks(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xticklabels(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xlabel('Position')
+        ax.set_ylabel('Error [m]')
+        plt.grid()
 
-    plt.subplot(2,1,2)
-    plt.title('b) A7 Ranging Error')
-    plt.plot(ts, rng_error['A7'][:,1], color='gray', label='Mean Error [m]')
-    plt.fill_between(x=ts, y1=rng_error['A7'][:,0], y2=rng_error['A7'][:,2], label='Error [m]', color='blue')
-    plt.xlabel('Position')
-    plt.ylabel('Error [m]')
-    plt.grid()
-    plt.legend()
+        ax = plt.subplot(8,1,2)
+        ax.set_title('A2')
+        ax.boxplot(rng_error['A2'], sym='')
+        ax.set_xticks(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xticklabels(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xlabel('Position')
+        ax.set_ylabel('Error [m]')
+        plt.grid()
 
-    folder_out = '../data_set/technical_validation/range_error_A6/'
-    if not os.path.exists(folder_out):
-        print('creating empty folder')
-        os.makedirs(folder_out)
-    filename = folder_out + environment + '_' + channel + '_A6' + '.png'
-    print('Saving ' + filename)
-    plt.savefig(filename, bbox_inches='tight')
-    #plt.show()
-    plt.close() 
+        ax = plt.subplot(8,1,3)
+        ax.set_title('A3')
+        ax.boxplot(rng_error['A3'], sym='')
+        ax.set_xticks(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xticklabels(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xlabel('Position')
+        ax.set_ylabel('Error [m]')
+        plt.grid()
+
+        ax = plt.subplot(8,1,4)
+        ax.set_title('A4')
+        ax.boxplot(rng_error['A4'], sym='')
+        ax.set_xticks(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xticklabels(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xlabel('Position')
+        ax.set_ylabel('Error [m]')
+        plt.grid()
+
+        ax = plt.subplot(8,1,5)
+        ax.set_title('A5')
+        ax.boxplot(rng_error['A5'], sym='')
+        ax.set_xticks(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xticklabels(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xlabel('Position')
+        ax.set_ylabel('Error [m]')
+        plt.grid()
+
+        ax = plt.subplot(8,1,6)
+        ax.set_title('A6')
+        ax.boxplot(rng_error['A6'], sym='')
+        ax.set_xticks(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xticklabels(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xlabel('Position')
+        ax.set_ylabel('Error [m]')
+        plt.grid()
+
+        ax = plt.subplot(8,1,7)
+        ax.set_title('A7')
+        ax.boxplot(rng_error['A7'], sym='')
+        ax.set_xticks(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xticklabels(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xlabel('Position')
+        ax.set_ylabel('Error [m]')
+        plt.grid()
+
+        ax = plt.subplot(8,1,8)
+        ax.set_title('A8')
+        ax.boxplot(rng_error['A8'], sym='')
+        ax.set_xticks(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xticklabels(np.arange(0,len(data['path'])+1,step=5))
+        ax.set_xlabel('Position')
+        ax.set_ylabel('Error [m]')
+        plt.grid()
+
+
+        filename = '../data_set/technical_validation/range_error_raw/' + environment + '_' + channel + '.png'
+        print('Saving ' + filename)
+        plt.savefig(filename, bbox_inches='tight')
+        #plt.show()
+        plt.close()  
 
 
 

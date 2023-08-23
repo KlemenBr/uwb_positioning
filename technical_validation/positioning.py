@@ -89,22 +89,22 @@ def calculate_position_wls(anchor_positions, ranges, weights):
 
 
 channels = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch7']
-locations = ['location0', 'location1', 'location2', 'location3']
+environments = ['environment0', 'environment1', 'environment2', 'environment3']
 
 
 # import data
 start_time = time.time()
 
-for location in locations:
+for environment in environments:
 
     for channel in channels:
-        print("Location: " + location)
+        print("Environment: " + environment)
         print("Channel: " + channel)
 
         # model name
-        model_name = 'model_' + location + '_' + channel
+        model_name = 'model_' + environment + '_' + channel
 
-        ds = data.DataSet_Positioning(channel, location, model_name)
+        ds = data.DataSet_Positioning(channel, environment, model_name)
 
         walking_path = ds.get_walking_path()
         anchors = ds.get_anchors()
@@ -159,7 +159,7 @@ for location in locations:
         plt.figure(figsize=(10,6), layout='tight')
         ax1 = plt.subplot(2,1,1)
         ax1.boxplot(stats, sym='')
-        ax1.set_title('a) ' + location + ' ' + channel + '; ' + 'mean error: %0.2f m, ' % np.mean(stats) + 'cumulative mean error: %0.1f m' % err_sum)
+        ax1.set_title('a) ' + environment + ' ' + channel + '; ' + 'mean error: %0.2f m, ' % np.mean(stats) + 'cumulative mean error: %0.1f m' % err_sum)
         ax1.set_xticks(np.arange(0,len(stats_compensated)+1,step=5))
         ax1.set_xticklabels(np.arange(0,len(stats_compensated)+1,step=5))
         ax1.set_xlabel('Position')
@@ -167,7 +167,7 @@ for location in locations:
         plt.grid()
 
         ax2 = plt.subplot(2,1,2)
-        ax2.set_title('b) ' + location + ' ' + channel + '; ' + 'mean error: %0.2f m, ' % np.mean(stats_compensated) + 'cumulative mean error: %0.1f m' % err_sum_comp)
+        ax2.set_title('b) ' + environment + ' ' + channel + '; ' + 'mean error: %0.2f m, ' % np.mean(stats_compensated) + 'cumulative mean error: %0.1f m' % err_sum_comp)
         ax2.boxplot(stats_compensated, sym='')
         ax2.set_ylim(ax1.get_ylim())
         ax2.set_xticks(np.arange(0,len(stats_compensated)+1,step=5))
@@ -177,7 +177,7 @@ for location in locations:
         plt.grid()
  
 
-        filename = '../data_set/technical_validation/positioning_wls/' + location + '_' + channel + '.png'
+        filename = '../data_set/technical_validation/positioning_wls/' + environment + '_' + channel + '.png'
         print('Saving ' + filename)
         plt.savefig(filename, bbox_inches='tight')
         plt.close()  

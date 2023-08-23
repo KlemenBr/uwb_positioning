@@ -141,21 +141,21 @@ def generate_model(batch_normalization=True, dropout_regularization=True):
 
 channels = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch7']
 anchors = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8']
-locations = ['location0', 'location1', 'location2', 'location3']
+environments = ['environment0', 'environment1', 'environment2', 'environment3']
 
 
 # prepare train data
 ds = data.DataSet()
 
-for i in range(len(locations)):
+for i in range(len(environments)):
 	for channel in channels:
-		test_location = locations[i]
-		print("Train model to be tested in environment: " + str(test_location))
+		test_environment = environments[i]
+		print("Train model to be tested in environment: " + str(test_environment))
 		print("Channel: " + channel)
 		names_mask = []
-		for k in range(len(locations)):
+		for k in range(len(environments)):
 			if i != k:
-				names_mask.append(locations[k])
+				names_mask.append(environments[k])
 		names_mask = np.asarray(names_mask)
 
 		print(names_mask)
@@ -163,7 +163,7 @@ for i in range(len(locations)):
 		# prepare train data
 		train_data = []
 		train_labels = []
-		for j in range(len(locations)-1):
+		for j in range(len(environments)-1):
 			# load data first
 			true_ranges, meas_ranges, labels, cir = ds.load_data_set(channel, names_mask[j])
 			train_data.append(cir)
@@ -172,8 +172,8 @@ for i in range(len(locations)):
 		train_labels = np.concatenate(train_labels, axis=0)	
 
 		# load test data
-		print("Loading test data: " + test_location)
-		true_ranges, meas_ranges, labels, cir = ds.load_data_set(channel, test_location)
+		print("Loading test data: " + test_environment)
+		true_ranges, meas_ranges, labels, cir = ds.load_data_set(channel, test_environment)
 		test_data = cir
 		test_labels = labels
 
@@ -189,7 +189,7 @@ for i in range(len(locations)):
 		evaluation = model.evaluate(x=test_data, y=test_labels, verbose=0)
 		print(evaluation)
 		print("mean_squared_error: %0.2f" % evaluation[0])
-		fn = 'model_' + test_location + '_' + channel
+		fn = 'model_' + test_environment + '_' + channel
 		save_model(model, fn)
 		print("--- %s seconds ---" % (time.time() - start_time))
 				

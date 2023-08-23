@@ -10,7 +10,7 @@ OFFSET = 5
 
 #channels = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch7']
 #anchors = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8']
-locations = ['location0', 'location1', 'location2', 'location3']
+environments = ['environment0', 'environment1', 'environment2', 'environment3']
 
 
 def init_rss_spline():
@@ -126,9 +126,9 @@ class DataSet(object):
         pass
 
     
-    def load_data_set(self, channel, location):
-        # load data from selected location
-        with open('../data_set/' + location + '/' + 'data.json', 'r') as f:
+    def load_data_set(self, channel, environment):
+        # load data from selected environment
+        with open('../data_set/' + environment + '/' + 'data.json', 'r') as f:
             data = json.load(f)
         
         # load walking path and anchors in a selected data set
@@ -148,8 +148,8 @@ class DataSet(object):
 
             # go through all anchors
             for anchor in anchors:
-                # skip loading data for anchor A6 in location location2
-                if ((location == 'location2') and (anchor == 'A6')):
+                # skip loading data for anchor A6 in environment2
+                if ((environment == 'environment2') and (anchor == 'A6')):
                     pass
                 else:
                     for item in data['measurements'][pos_name][anchor][channel]:
@@ -176,9 +176,9 @@ class DataSet(object):
 
 
 class DataSet_Positioning(object):
-    def __init__(self, channel, location, error_estimation_model):
+    def __init__(self, channel, environment, error_estimation_model):
         self.channel = channel
-        self.location = location
+        self.environment = environment
         self.model = load_model(error_estimation_model)
 
         # private variables
@@ -239,8 +239,8 @@ class DataSet_Positioning(object):
         return rng_combinations
     
     def data_set_init(self):
-        # load data from selected location
-        with open('../data_set/' + self.location + '/' + 'data.json', 'r') as f:
+        # load data from selected environment
+        with open('../data_set/' + self.environment + '/' + 'data.json', 'r') as f:
             data = json.load(f)
         
         # load walking path

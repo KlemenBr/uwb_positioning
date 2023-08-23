@@ -4,13 +4,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-locations = ['location0', 'location1', 'location2', 'location3']
+environments = ['environment0', 'environment1', 'environment2', 'environment3']
 
-for location in locations:
-    print(location)
+for environment in environments:
+    print(environment)
     data = {}
 
-    with open('../data_set/' + location + '/' + 'data.json', 'r') as f:
+    with open('../data_set/' + environment + '/' + 'data.json', 'r') as f:
         data = json.load(f)
 
     # load walking path data
@@ -43,16 +43,16 @@ for location in locations:
                         rng_error_los[channel][1].append(range_error)
 
 
-    if 'location0' == location:
+    if 'environment0' == environment:
         xmin = -1
         xmax = 3
-    elif 'location1' == location:
+    elif 'environment1' == environment:
         xmin = -1
         xmax = 2
-    elif 'location2' == location:
+    elif 'environment2' == environment:
         xmin = -1
         xmax = 5
-    elif 'location3' == location:
+    elif 'environment3' == environment:
         xmin = -1
         xmax = 3
     nbins = 200
@@ -85,7 +85,7 @@ for location in locations:
     plt.grid()
     plt.legend()
 
-    filename = '../data_set/technical_validation/range_error_histograms/' + location + '.png'
+    filename = '../data_set/technical_validation/range_error_histograms/' + environment + '.png'
     print('Saving ' + filename)
     plt.savefig(filename)
 

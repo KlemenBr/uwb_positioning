@@ -10,7 +10,7 @@ OFFSET = 5
 
 #channels = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch7']
 #anchors = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8']
-locations = ['location0', 'location1', 'location2', 'location3']
+environments = ['environment0', 'environment1', 'environment2', 'environment3']
 
 
 
@@ -38,15 +38,15 @@ def generate_cir(data):
 
 
 
-for location in locations:
-    print(location)
+for environment in environments:
+    print(environment)
     data = {}
 
-    with open('../data_set/' + location + '/' + 'data.json', 'r') as f:
+    with open('../data_set/' + environment + '/' + 'data.json', 'r') as f:
         data = json.load(f)
     
     # create directory if it doesnt exist
-    os.makedirs('../data_set/technical_validation/cir_min_max_mean/' + location, exist_ok=True)
+    os.makedirs('../data_set/technical_validation/cir_min_max_mean/' + environment, exist_ok=True)
 
     # load walking path data
     path = data['path']
@@ -96,7 +96,7 @@ for location in locations:
             plt.legend()
 
 
-            filename = '../data_set/technical_validation/cir_min_max_mean/' + location + '/' + anchor + '_' + channel + '.png'
+            filename = '../data_set/technical_validation/cir_min_max_mean/' + environment + '/' + anchor + '_' + channel + '.png'
             print('Saving ' + filename)
             plt.savefig(filename, bbox_inches='tight')
             plt.close()

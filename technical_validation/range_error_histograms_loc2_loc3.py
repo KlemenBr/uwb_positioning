@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 data2 = {}
 data3 = {}
 
-with open('../data_set/location2/' + 'data.json', 'r') as f:
+with open('../data_set/environment2/' + 'data.json', 'r') as f:
     data2 = json.load(f)
-with open('../data_set/location3/' + 'data.json', 'r') as f:
+with open('../data_set/environment3/' + 'data.json', 'r') as f:
     data3 = json.load(f)
 
 # load walking path data
@@ -77,7 +77,7 @@ xmin = -1
 xmax = 5
 
 ax = plt.subplot(2,2,1)
-plt.title('a) LoS Ranging Error [m]: location2')
+plt.title('a) LoS Ranging Error [m]: environment2')
 plt.hist(rng_error_los2['ch1'][1], range=[xmin,xmax], bins=nbins, density=True, cumulative=False, histtype='stepfilled', label='ch1')
 plt.hist(rng_error_los2['ch2'][1], range=[xmin,xmax], bins=nbins, density=True, cumulative=False, histtype='stepfilled', label='ch2')
 plt.hist(rng_error_los2['ch3'][1], range=[xmin,xmax], bins=nbins, density=True, cumulative=False, histtype='stepfilled', label='ch3')
@@ -91,7 +91,7 @@ plt.legend()
 
 # histograms for NLoS
 ax = plt.subplot(2,2,3)
-plt.title('b) NLoS Ranging Error [m]: location2')
+plt.title('b) NLoS Ranging Error [m]: environment2')
 plt.hist(rng_error_nlos2['ch1'][1], range=[xmin,xmax], bins=nbins, density=True, cumulative=False, histtype='stepfilled', label='ch1')
 plt.hist(rng_error_nlos2['ch2'][1], range=[xmin,xmax], bins=nbins, density=True, cumulative=False, histtype='stepfilled', label='ch2')
 plt.hist(rng_error_nlos2['ch3'][1], range=[xmin,xmax], bins=nbins, density=True, cumulative=False, histtype='stepfilled', label='ch3')
@@ -108,7 +108,7 @@ xmin = -1
 xmax = 5
 
 ax = plt.subplot(2,2,2)
-plt.title('c) LoS Ranging Error [m]: location3')
+plt.title('c) LoS Ranging Error [m]: environment3')
 plt.hist(rng_error_los3['ch1'][1], range=[xmin,xmax], bins=nbins, density=True, cumulative=False, histtype='stepfilled', label='ch1')
 plt.hist(rng_error_los3['ch2'][1], range=[xmin,xmax], bins=nbins, density=True, cumulative=False, histtype='stepfilled', label='ch2')
 plt.hist(rng_error_los3['ch3'][1], range=[xmin,xmax], bins=nbins, density=True, cumulative=False, histtype='stepfilled', label='ch3')
@@ -122,7 +122,7 @@ plt.legend()
 
 # histograms for NLoS
 ax = plt.subplot(2,2,4)
-plt.title('d) NLoS Ranging Error [m]: location3')
+plt.title('d) NLoS Ranging Error [m]: environment3')
 plt.hist(rng_error_nlos3['ch1'][1], range=[xmin,xmax], bins=nbins, density=True, cumulative=False, histtype='stepfilled', label='ch1')
 plt.hist(rng_error_nlos3['ch2'][1], range=[xmin,xmax], bins=nbins, density=True, cumulative=False, histtype='stepfilled', label='ch2')
 plt.hist(rng_error_nlos3['ch3'][1], range=[xmin,xmax], bins=nbins, density=True, cumulative=False, histtype='stepfilled', label='ch3')

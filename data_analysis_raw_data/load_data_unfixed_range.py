@@ -1,7 +1,10 @@
 import os
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+import time
+import json
+import pickle
+
 
 legend = [
     {'name': 'tag_id', 'index': 0},
@@ -33,10 +36,13 @@ legend = [
     {'name': 'cir', 'index': 26}
 ]
 
-envs = {'environment2': {'path': './data_set/raw_data/environment2/'}}
+envs = {'environment0': {'path': './data_set/raw_data/environment0/'},
+		'environment1': {'path': './data_set/raw_data/environment1/'},
+		'environment2': {'path': './data_set/raw_data/environment2/'},
+		'environment3': {'path': './data_set/raw_data/environment3/'}}
 
 channels = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch7']
-anchors = ['A6', 'A7']
+anchors = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8']
 
 # prepare filenames for the process of range offset calculation
 filenames = []
@@ -44,22 +50,19 @@ for channel in channels:
     for anchor in anchors:
         filenames.append(channel + '_' + anchor)
 
-data = {}
-
+#data = {}
 
 for environment in envs.keys():
+    print("Loading data for " + environment)
 
     # load walking path
     walking_path = envs[environment]['path']+'walking_path.csv'
     df = pd.read_csv(walking_path, sep=',', header=None, skiprows=1)
     wp_data = df.values
-    
-    # load data    
+
+    data = {}
     data['path'] = []
     data['measurements'] = {}
-    data['channels'] = channels
-    data['anchors'] = anchors
-
 
     for position in wp_data:
         pos_name = '%.2f_' % position[0] + '%.2f_' % position[1] + '%.2f' % position[2]
@@ -69,7 +72,7 @@ for environment in envs.keys():
         data['measurements'][pos_name] = {}
 
         # set input folder loaction
-        folder_in = envs[environment]['path'] +'data_offset/' + pos_name
+        folder_in = '../data_set/raw_data/'+ environment + '/data/' + pos_name
         print(folder_in)
 
         # go through files and load data
@@ -79,6 +82,7 @@ for environment in envs.keys():
             channel = pair.split('_')[0]
             anchor = pair.split('_')[1]
             filepath_in = folder_in + '/' + file
+            #print(filepath_in)
 
             if anchor not in data['measurements'][pos_name].keys():
                 data['measurements'][pos_name][anchor] = {}
@@ -93,8 +97,6 @@ for environment in envs.keys():
                 data structure:
                 data = {
                     path: [{x:, y:, z:, name:}, {x:, y:, z:, name:}...]
-                    "anchors": ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8'],
-                    "channels": ['ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch7']
                     measurements: {
                         position: {
                             anchor:{
@@ -121,68 +123,12 @@ for environment in envs.keys():
                 data['measurements'][pos_name][anchor][channel].append(measurement)
 
 
-# load walking path data
-path = data['path']
-channels = data['channels']
-anchors = data['anchors']
-print(len(path))
+    # write data to json file
+    print("saving dictionary in .json format...")
+    fnm = environment + '_unfixed_range' + '.json'
+    with open(fnm, 'w') as f:
+        f.write(json.dumps(data))
 
-for channel in channels:
-    rng_error = {}
-    for anchor in anchors:
-        rng_error[anchor] = []
+    print("finished")
 
-    for anchor in anchors:
-        for position in path:
-
-            pos_name = position['x'] + '_' + position['y'] + '_' + position['z']
-    
-            rerr = []
-
-            for item in data['measurements'][pos_name][anchor][channel]:
-                # calculate euclidean distance
-                range = np.sqrt(np.power((item['x_anchor'] - item['x_tag']),2) + 
-                                np.power((item['y_anchor'] - item['y_tag']),2) + 
-                                np.power((item['z_anchor'] - item['z_tag']),2))
-                rerr.append(item['range'] - range)
-
-                
-            rng_error[anchor].append(np.array([np.min(rerr), np.mean(rerr), np.max(rerr)]))
-        
-        rng_error[anchor] = np.asarray(rng_error[anchor])
-
-    plt.figure(figsize=(10,6), layout='tight', dpi=200)
-    #plt.title(environment + ' ' + channel + ' ' + 'err_sum: %f' % err_sum + 'err_sum_comp: %f' % err_sum_comp)
-    ts = np.arange(int(len(path)))
-
-    plt.subplot(2,1,1)
-    plt.title('a) A6 Ranging Error')
-    plt.plot(ts, rng_error['A6'][:,1], color='gray', label='Mean Error [m]')
-    plt.fill_between(x=ts, y1=rng_error['A6'][:,0], y2=rng_error['A6'][:,2], label='Error [m]', color='blue')
-    plt.xlabel('Position')
-    plt.ylabel('Error [m]')
-    plt.grid()
-    plt.legend()
-
-    plt.subplot(2,1,2)
-    plt.title('b) A7 Ranging Error')
-    plt.plot(ts, rng_error['A7'][:,1], color='gray', label='Mean Error [m]')
-    plt.fill_between(x=ts, y1=rng_error['A7'][:,0], y2=rng_error['A7'][:,2], label='Error [m]', color='blue')
-    plt.xlabel('Position')
-    plt.ylabel('Error [m]')
-    plt.grid()
-    plt.legend()
-
-    folder_out = '../data_set/technical_validation/range_error_A6/'
-    if not os.path.exists(folder_out):
-        print('creating empty folder')
-        os.makedirs(folder_out)
-    filename = folder_out + environment + '_' + channel + '_A6' + '.png'
-    print('Saving ' + filename)
-    plt.savefig(filename, bbox_inches='tight')
-    #plt.show()
-    plt.close() 
-
-
-
-   
+ 
