@@ -57,7 +57,7 @@ for environment in environments:
         xmax = 3
     nbins = 200
     # histograms for LoS
-    plt.figure(figsize=(10,6), layout='tight')
+    plt.figure(figsize=(10,6), dpi=300, layout='tight')
     ax = plt.subplot(2,1,1)
     plt.title('LoS Ranging Error [m]')
     plt.hist(rng_error_los['ch1'][1], range=[xmin,xmax], bins=nbins, density=True, cumulative=False, histtype='stepfilled', label='ch1')

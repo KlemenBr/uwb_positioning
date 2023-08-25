@@ -120,7 +120,7 @@ for environment in environments:
 
         filename = '../data_set/technical_validation/range_error/' + environment + '_' + channel + '.png'
         print('Saving ' + filename)
-        plt.savefig(filename, bbox_inches='tight')
+        plt.savefig(filename, dpi=300, bbox_inches='tight')
         plt.close()  
 
 

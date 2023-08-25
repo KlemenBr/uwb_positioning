@@ -33,7 +33,7 @@ legend = [
     {'name': 'cir', 'index': 26}
 ]
 
-envs = {'environment2': {'path': './data_set/raw_data/environment2/'}}
+envs = {'environment2': {'path': '../data_set/raw_data/environment2/'}}
 
 channels = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch7']
 anchors = ['A6', 'A7']
@@ -151,7 +151,7 @@ for channel in channels:
         
         rng_error[anchor] = np.asarray(rng_error[anchor])
 
-    plt.figure(figsize=(10,6), layout='tight', dpi=200)
+    plt.figure(figsize=(10,6), layout='tight', dpi=300)
     #plt.title(environment + ' ' + channel + ' ' + 'err_sum: %f' % err_sum + 'err_sum_comp: %f' % err_sum_comp)
     ts = np.arange(int(len(path)))
 

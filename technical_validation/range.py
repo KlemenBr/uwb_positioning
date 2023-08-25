@@ -50,7 +50,7 @@ for environment in environments:
             trng[anchor] = np.asarray(trng[anchor])
             
 
-        plt.figure(figsize=(10,18), layout='tight')
+        plt.figure(figsize=(10,18), dpi=300, layout='tight')
         ts = np.arange(int(len(path)))
 
         plt.subplot(8,1,1)
@@ -137,7 +137,7 @@ for environment in environments:
 
         filename = '../data_set/technical_validation/range/' + environment + '_' + channel + '.png'
         print('Saving ' + filename)
-        plt.savefig(filename, bbox_inches='tight')
+        plt.savefig(filename, dpi=300, bbox_inches='tight')
         plt.close()  
 
 

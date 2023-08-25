@@ -156,7 +156,7 @@ for environment in environments:
         print(np.mean(stats))
         print(np.mean(stats_compensated))
      
-        plt.figure(figsize=(10,6), layout='tight')
+        plt.figure(figsize=(10,6), dpi=300, layout='tight')
         ax1 = plt.subplot(2,1,1)
         ax1.boxplot(stats, sym='')
         ax1.set_title('a) ' + environment + ' ' + channel + '; ' + 'mean error: %0.2f m, ' % np.mean(stats) + 'cumulative mean error: %0.1f m' % err_sum)
@@ -179,7 +179,7 @@ for environment in environments:
 
         filename = '../data_set/technical_validation/positioning_wls/' + environment + '_' + channel + '.png'
         print('Saving ' + filename)
-        plt.savefig(filename, bbox_inches='tight')
+        plt.savefig(filename, dpi=300, bbox_inches='tight')
         plt.close()  
      
         del ds

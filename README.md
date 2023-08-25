@@ -81,11 +81,13 @@ python3 train_ranging_error.py
 
 The list of other experiments:
 - cir_min_max_mean.py
+- los_nlos.py
 - range.py
 - range_error.py
 - range_error_histograms.py
 - range_error_histograms_loc2_loc3.py
 - positioning.py
+- rss.py
 
 Experiment **positioning.py** is the main experiment which demonstrates the use of ranging error estimates to improve the accuracy of indoor positioning.
 
