@@ -1,5 +1,8 @@
 The code contains the preprocessing scripts and experiments that work on [UWB Positioning and Tracking Data Set](https://zenodo.org/record/7629141). The code demonstrate the UWP positioning technique with ranging error mitigation using deep learning-based ranging error estimation by convolutional neural networks (CNN) using TensorFlow deep learning platform.
 
+# Published Results
+This repository contains the code that was used to produce the results published in the following scientific paper:
+Bregar, K. Indoor UWB Positioning and Position Tracking Data Set. Sci Data 10, 744 (2023). [https://doi.org/10.1038/s41597-023-02639-5](https://doi.org/10.1038/s41597-023-02639-5)
 
 # Requirements
 The code is written and tested on a computer with **Ubuntu 22.04** Linux OS distribution. It should be possible to replicate the experiments on any computer with one of major Linux OS distributions that support Docker. It should also be possible to run the experiments on Windows computers with Docker installed but **any of those configurations wasn't tested**.
